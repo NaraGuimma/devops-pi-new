@@ -139,9 +139,6 @@
         bucket: mybucket
         mode: create
         region: "{{ region }}"
-        loop:
-          - dh-nara-pi-lovelace-devops-homolog
-          - dh-nara-pi-lovelace-devops-prod
 
     - name: Create S3
       s3_bucket:
