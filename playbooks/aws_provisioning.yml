@@ -136,37 +136,23 @@
 
     - name: Create a buckets
       aws_s3:
-        bucket: '{{ item }}'
+        bucket: mybucket
         mode: create
-        region: us-east-1
-      loop:
-        - dh-pi-devops-dev
-        - dh-pi-devops-prod
+        region: "{{ region }}"
+        loop:
+          - dh-nara-pi-lovelace-devops-homolog
+          - dh-nara-pi-lovelace-devops-prod
 
     - name: Create S3
       s3_bucket:
         aws_access_key: "{{ AWS_access_key }}"
         aws_secret_key: "{{ AWS_secret_key }}"          
-        name: '{{ item }}'
+        name: mybucket
         region: "{{ region }}"
         state: present
-        policy:
-          Version: '2012-10-17'
-          Statement: 
-            - Effect: Allow
-              Principal: 
-                'AWS' : "{{ iuser.iam_user.user.arn }}"
-              Action: [
-                  's3:ListBucket',
-                  's3:DeleteObject',
-                  's3:GetObject',
-                  's3:PutObject',
-                  's3:PutObjectAcl'
-              ]
-              Resource: [
-                'arn:aws:s3:::{{item}}/*',
-                'arn:aws:s3:::{{item}}'
-              ]
+        mode: create
+        policy: "{{lookup('file', 'my_bucket_policy.json')}}"  
+          
       loop:
-        - dh-pi-devops-dev
-        - dh-pi-devops-prod
+        - dh-nara-pi-lovelace-devops-homolog
+        - dh-nara-pi-lovelace-devops-prod
