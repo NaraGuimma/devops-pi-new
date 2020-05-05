@@ -136,20 +136,23 @@
 
     - name: Create a buckets
       aws_s3:
-        bucket: mybucket
+        bucket: "{{ item }}"
         mode: create
         region: "{{ region }}"
+        loop:
+        - dh-pi-devops-dev
+        - dh-pi-devops-prod
 
     - name: Create S3
       s3_bucket:
         aws_access_key: "{{ AWS_access_key }}"
         aws_secret_key: "{{ AWS_secret_key }}"          
-        name: mybucket
+        name: "{{ item }}"
         region: "{{ region }}"
         state: present
         mode: create
         policy: "{{lookup('file', 'my_bucket_policy.json')}}"  
           
-      loop:
+        loop:
         - dh-nara-pi-lovelace-devops-homolog
         - dh-nara-pi-lovelace-devops-prod
