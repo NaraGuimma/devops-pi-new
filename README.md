@@ -34,9 +34,9 @@ Se necessário instalar
 
 2.2 Arquivo aws_credentials.yml
 
-`AWSAccessKeyId: ***************'
+`AWSAccessKeyId: ***************`
 
-`AWSSecretKey: *****************'
+`AWSSecretKey: *****************`
 
 2.3 Encriptar o arquivo aws_credentials.yml
 
