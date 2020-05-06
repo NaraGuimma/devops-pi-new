@@ -136,12 +136,14 @@
 
     - name: Create a buckets
       aws_s3:
-        bucket: "{{ item }}"
+        bucket: "{{ item }}" 
         mode: create
         region: "{{ region }}"
         loop:
-        - dh-pi-devops-dev
-        - dh-pi-devops-prod
+          - dh-nara-pi-lovelace-devops-homolog
+          - dh-nara-pi-lovelace-devops-prod
+
+
 
     - name: Create S3
       s3_bucket:
@@ -151,8 +153,7 @@
         region: "{{ region }}"
         state: present
         mode: create
-        policy: "{{lookup('file', 'my_bucket_policy.json')}}"  
-          
+        policy: "{{lookup('file', 'my_bucket_policy.json')}}"
         loop:
-        - dh-nara-pi-lovelace-devops-homolog
-        - dh-nara-pi-lovelace-devops-prod
+          - dh-nara-pi-lovelace-devops-homolog
+          - dh-nara-pi-lovelace-devops-prod
